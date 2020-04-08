@@ -14,16 +14,16 @@ module.exports = class ResumeCommand extends Command {
 
   run(message) {
     var voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('Присоединитесь к каналу и попробуйте снова');
 
     if (
-      typeof message.guild.musicData.songDispatcher == 'undefined' ||
+      typeof message.guild.musicData.songDispatcher == 'не определено' ||
       message.guild.musicData.songDispatcher === null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('Там нет никакой песни, играющей прямо сейчас!');
     }
 
-    message.say('Song resumed :play_pause:');
+    message.say('Песня возобновлена :play_pause:');
 
     message.guild.musicData.songDispatcher.resume();
   }

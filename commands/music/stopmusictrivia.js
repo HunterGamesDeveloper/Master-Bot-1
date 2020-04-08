@@ -19,15 +19,15 @@ module.exports = class StopMusicTriviaCommand extends Command {
   }
   run(message) {
     if (!message.guild.triviaData.isTriviaRunning)
-      return message.say('No trivia is currently running');
+      return message.say('Никаких пустяков в настоящее время не работает');
 
     if (message.guild.me.voice.channel !== message.member.voice.channel) {
-      return message.say("Join the trivia's channel and try again");
+      return message.say("Присоединяйтесь к каналу викторины и попробуйте снова");
     }
 
     if (!message.guild.triviaData.triviaScore.has(message.author.username)) {
       return message.say(
-        'You need to participate in the trivia in order to end it'
+        'Вы должны участвовать в викторинах, чтобы закончить его'
       );
     }
 

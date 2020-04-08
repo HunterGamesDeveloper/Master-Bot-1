@@ -26,17 +26,17 @@ module.exports = class VolumeCommand extends Command {
 
   run(message, { wantedVolume }) {
     const voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('Присоединитесь к каналу и попробуйте снова');
 
     if (
-      typeof message.guild.musicData.songDispatcher == 'undefined' ||
+      typeof message.guild.musicData.songDispatcher == 'неопределено' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('Там нет никакой песни, играющей прямо сейчас!');
     }
     const volume = wantedVolume / 100;
     message.guild.musicData.volume = volume;
     message.guild.musicData.songDispatcher.setVolume(volume);
-    message.say(`Current volume is: ${wantedVolume}%`);
+    message.say(`Текущая громкость: ${wantedVolume}%`);
   }
 };

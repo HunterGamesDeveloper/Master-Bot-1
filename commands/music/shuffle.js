@@ -13,17 +13,17 @@ module.exports = class ShuffleQueueCommand extends Command {
   }
   run(message) {
     var voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('Там нет никакой песни, играющей прямо сейчас!');
 
     if (
-      typeof message.guild.musicData.songDispatcher == 'undefined' ||
+      typeof message.guild.musicData.songDispatcher == 'неопределено' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('Там нет никакой песни, играющей прямо сейчас!');
     }
 
     if (message.guild.musicData.queue.length < 1)
-      return message.say('There are no songs in queue');
+      return message.say('В очереди нет песен');
 
     shuffleQueue(message.guild.musicData.queue);
 
@@ -33,7 +33,7 @@ module.exports = class ShuffleQueueCommand extends Command {
     });
     var queueEmbed = new MessageEmbed()
       .setColor('#ff7373')
-      .setTitle('New Music Queue');
+      .setTitle('Новая музыкальная очередь');
     for (let i = 0; i < titleArray.length; i++) {
       queueEmbed.addField(`${i + 1}:`, `${titleArray[i]}`);
     }

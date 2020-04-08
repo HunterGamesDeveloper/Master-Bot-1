@@ -14,16 +14,16 @@ module.exports = class SkipAllCommand extends Command {
 
   run(message) {
     var voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('Присоединитесь к каналу и попробуйте снова');
 
     if (
-      typeof message.guild.musicData.songDispatcher == 'undefined' ||
+      typeof message.guild.musicData.songDispatcher == 'неопределено' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('Там нет никакой песни, играющей прямо сейчас!');
     }
     if (!message.guild.musicData.queue)
-      return message.say('There are no songs in queue');
+      return message.say('В очереди нет песен');
     message.guild.musicData.songDispatcher.end();
     message.guild.musicData.queue.length = 0; // clear queue
     return;

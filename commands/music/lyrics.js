@@ -34,14 +34,14 @@ module.exports = class LyricsCommand extends Command {
     ) {
       songName = message.guild.musicData.nowPlaying.title;
     } else if (songName == '' && message.guild.triviaData.isTriviaRunning) {
-      return message.say('Please try again after the trivia has ended');
+      return message.say('Пожалуйста, попробуйте еще раз после того, как пустяки закончились');
     } else if (songName == '' && !message.guild.musicData.isPlaying) {
       return message.say(
-        'There is no song playing right now, please try again with a song name or play a song first'
+        'В данный момент не воспроизводится ни одна песня, пожалуйста, попробуйте еще раз с названием песни или сначала воспроизведите песню'
       );
     }
     const sentMessage = await message.channel.send(
-      '👀 Searching for lyrics 👀'
+      '👀 Поиск текстов песен 👀'
     );
 
     // get song id
@@ -66,7 +66,7 @@ module.exports = class LyricsCommand extends Command {
       lyrics = lyrics.replace(/(\[.+\])/g, '');
 
       if (lyrics.length > 4095)
-        return message.say('Lyrics are too long to be returned as embed');
+        return message.say('Тексты песен слишком длинные, чтобы их можно было вернуть как встраиваемые');
       if (lyrics.length < 2048) {
         const lyricsEmbed = new MessageEmbed()
           .setColor('#00724E')
@@ -87,7 +87,7 @@ module.exports = class LyricsCommand extends Command {
     } catch (e) {
       console.error(e);
       return sentMessage.edit(
-        'Something when wrong, please try again or be more specific'
+        'Если что-то не так, пожалуйста, попробуйте еще раз или будьте более конкретны'
       );
     }
     async function getLyrics(url) {

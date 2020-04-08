@@ -13,7 +13,7 @@ module.exports = class LoopCommand extends Command {
 
   run(message) {
     if (!message.guild.musicData.isPlaying) {
-      return message.say('There is no song playing right now!');
+      return message.say('Сейчас не играет музыка!');
     } else if (
       message.guild.musicData.isPlaying &&
       message.guild.triviaData.isTriviaRunning
@@ -22,7 +22,7 @@ module.exports = class LoopCommand extends Command {
     }
 
     message.channel.send(
-      `${message.guild.musicData.nowPlaying.title} added to queue`
+      `${message.guild.musicData.nowPlaying.title} добавлена в очередь`
     );
     message.guild.musicData.queue.unshift(message.guild.musicData.nowPlaying);
     return;

@@ -15,16 +15,16 @@ module.exports = class QueueCommand extends Command {
 
   run(message) {
     if (message.guild.triviaData.isTriviaRunning)
-      return message.say('Try again after the trivia has ended');
+      return message.say('Попробуйте еще раз после того, как мелочи закончились');
     if (message.guild.musicData.queue.length == 0)
-      return message.say('There are no songs in queue!');
+      return message.say('В очереди нет песен!');
     const titleArray = [];
     message.guild.musicData.queue.map(obj => {
       titleArray.push(obj.title);
     });
     var queueEmbed = new MessageEmbed()
       .setColor('#ff7373')
-      .setTitle('Music Queue');
+      .setTitle('Музыкальная очередь');
     for (let i = 0; i < titleArray.length; i++) {
       queueEmbed.addField(`${i + 1}:`, `${titleArray[i]}`);
     }

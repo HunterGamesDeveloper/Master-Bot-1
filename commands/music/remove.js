@@ -19,19 +19,19 @@ module.exports = class RemoveSongCommand extends Command {
   }
   run(message, { songNumber }) {
     if (songNumber < 1 && songNumber >= message.guild.musicData.queue.length) {
-      return message.reply('Please enter a valid song number');
+      return message.reply('Пожалуйста, введите правильный номер песни');
     }
     var voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('Присоединитесь к каналу и попробуйте снова');
 
     if (
-      typeof message.guild.musicData.songDispatcher == 'undefined' ||
+      typeof message.guild.musicData.songDispatcher == 'не определено' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('Там нет никакой песни, играющей прямо сейчас!');
     }
 
     message.guild.musicData.queue.splice(songNumber - 1, 1);
-    return message.say(`Removed song number ${songNumber} from queue`);
+    return message.say(`Удален номер песни ${songNumber} из очереди`);
   }
 };

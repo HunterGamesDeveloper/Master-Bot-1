@@ -22,20 +22,20 @@ module.exports = class SkipToCommand extends Command {
 
   run(message, { songNumber }) {
     if (songNumber < 1 && songNumber >= message.guild.musicData.queue.length) {
-      return message.reply('Please enter a valid song number');
+      return message.reply('Пожалуйста, введите правильный номер песни');
     }
     var voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('Присоединитесь к каналу и попробуйте снова');
 
     if (
-      typeof message.guild.musicData.songDispatcher == 'undefined' ||
+      typeof message.guild.musicData.songDispatcher == 'неопределено' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.reply('There is no song playing right now!');
+      return message.reply('Там нет никакой песни, играющей прямо сейчас!');
     }
 
     if (message.guild.musicData.queue < 1)
-      return message.say('There are no songs in queue');
+      return message.say('В очереди нет песен');
 
     message.guild.musicData.queue.splice(0, songNumber - 1);
     message.guild.musicData.songDispatcher.end();

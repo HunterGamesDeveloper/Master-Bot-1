@@ -14,16 +14,16 @@ module.exports = class PauseCommand extends Command {
 
   run(message) {
     var voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.reply('Join a channel and try again');
+    if (!voiceChannel) return message.reply('Присоединитесь к каналу и попробуйте снова');
 
     if (
       typeof message.guild.musicData.songDispatcher == 'undefined' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      return message.say('There is no song playing right now!');
+      return message.say('Там нет никакой песни, играющей прямо сейчас!');
     }
 
-    message.say('Song paused :pause_button:');
+    message.say('Песня остановилась :pause_button:');
 
     message.guild.musicData.songDispatcher.pause();
   }

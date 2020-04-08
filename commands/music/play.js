@@ -33,10 +33,10 @@ module.exports = class PlayCommand extends Command {
   async run(message, { query }) {
     // initial checking
     var voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.say('Join a channel and try again');
+    if (!voiceChannel) return message.say('Присоединитесь к каналу и попробуйте снова');
     // end initial check
     if (message.guild.triviaData.isTriviaRunning == true)
-      return message.say('Please try after the trivia has ended');
+      return message.say('Пожалуйста, попробуйте после того, как пустяки закончились');
     // This if statement checks if the user entered a youtube playlist url
     if (
       query.match(
@@ -77,12 +77,12 @@ module.exports = class PlayCommand extends Command {
           return this.playSong(message.guild.musicData.queue, message);
         } else if (message.guild.musicData.isPlaying == true) {
           return message.say(
-            `Playlist - :musical_note:  ${playlist.title} :musical_note: has been added to queue`
+            `Плэйлист - :musical_note:  ${playlist.title} :musical_note: был добавлен в очередь`
           );
         }
       } catch (err) {
         // console.error(err);
-        return message.say('Playlist is either private or it does not exist');
+        return message.say('Плейлист либо приватный, либо не существует');
       }
     }
 
@@ -128,18 +128,18 @@ module.exports = class PlayCommand extends Command {
           message.guild.musicData.isPlaying = true;
           return this.playSong(message.guild.musicData.queue, message);
         } else if (message.guild.musicData.isPlaying == true) {
-          return message.say(`${song.title} added to queue`);
+          return message.say(`${song.title} добавлено в очередь`);
         }
       } catch (err) {
         console.error(err);
-        return message.say('Something went wrong, please try later');
+        return message.say('Что-то пошло не так, попробуйте позже');
       }
     }
     try {
       const videos = await youtube.searchVideos(query, 5);
       if (videos.length < 5) {
         return message.say(
-          `I had some trouble finding what you were looking for, please try again or be more specific`
+          `У меня возникли проблемы с поиском того, что вы искали, пожалуйста, попробуйте еще раз или уточните`
         );
       }
       const vidNameArr = [];
@@ -149,13 +149,13 @@ module.exports = class PlayCommand extends Command {
       vidNameArr.push('exit');
       const embed = new MessageEmbed()
         .setColor('#e9f931')
-        .setTitle('Choose a song by commenting a number between 1 and 5')
-        .addField('Song 1', vidNameArr[0])
-        .addField('Song 2', vidNameArr[1])
-        .addField('Song 3', vidNameArr[2])
-        .addField('Song 4', vidNameArr[3])
-        .addField('Song 5', vidNameArr[4])
-        .addField('Exit', 'exit');
+        .setTitle('Выберите песню, отправив число от 1 до 5')
+        .addField('Песня 1', vidNameArr[0])
+        .addField('Песня 2', vidNameArr[1])
+        .addField('Песня 3', vidNameArr[2])
+        .addField('Песня 4', vidNameArr[3])
+        .addField('Песня 5', vidNameArr[4])
+        .addField('Выход', 'exit');
       var songEmbed = await message.say({ embed });
       try {
         var response = await message.channel.awaitMessages(
@@ -174,7 +174,7 @@ module.exports = class PlayCommand extends Command {
           songEmbed.delete();
         }
         return message.say(
-          'Please try again and enter a number between 1 and 5 or exit'
+          'Пожалуйста, попробуйте еще раз и введите число от 1 до 5 или выйдите'
         );
       }
       if (response.first().content === 'exit') return songEmbed.delete();
@@ -197,7 +197,7 @@ module.exports = class PlayCommand extends Command {
           songEmbed.delete();
         }
         return message.say(
-          'An error has occured when trying to get the video ID from youtube'
+          'Произошла ошибка при попытке получить идентификатор видео с YouTube'
         );
       }
       const url = `https://www.youtube.com/watch?v=${video.raw.id}`;
@@ -238,7 +238,7 @@ module.exports = class PlayCommand extends Command {
         songEmbed.delete();
       }
       return message.say(
-        'Something went wrong with searching the video you requested :('
+        'Что-то пошло не так с поиском запрошенного вами видео :('
       );
     }
   }
@@ -259,9 +259,9 @@ module.exports = class PlayCommand extends Command {
             const videoEmbed = new MessageEmbed()
               .setThumbnail(queue[0].thumbnail)
               .setColor('#e9f931')
-              .addField('Now Playing:', queue[0].title)
-              .addField('Duration:', queue[0].duration);
-            if (queue[1]) videoEmbed.addField('Next Song:', queue[1].title);
+              .addField('Сейчас играет:', queue[0].title)
+              .addField('Продолжительность:', queue[0].duration);
+            if (queue[1]) videoEmbed.addField('Следующая песня:', queue[1].title);
             message.say(videoEmbed);
             message.guild.musicData.nowPlaying = queue[0];
             return queue.shift();
@@ -276,7 +276,7 @@ module.exports = class PlayCommand extends Command {
             }
           })
           .on('error', e => {
-            message.say('Cannot play song');
+            message.say('Невозможно воспроизвести песню');
             console.error(e);
             message.guild.musicData.queue.length = 0;
             message.guild.musicData.isPlaying = false;
